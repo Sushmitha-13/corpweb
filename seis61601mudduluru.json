@@ -1,0 +1,23 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+
+  "Resources" : {
+      "seis61601mudduluru" : {
+         "Type" : "AWS::S3::Bucket",
+         "Properties" : {
+             "Tags" : [
+                 { "Key" : "Environment", "Value" : "Test" }
+             ]
+         },
+         "Metadata" : {
+             "Comment" : "Real bucket name will inclue seis665 plus random characters"
+         }
+      }
+  },
+  "Outputs" : {
+      "BucketUrl" : {
+        "Description" : "S3 Bucket website address",
+        "Value" : { "Fn::GetAtt" : [ "seis61601mudduluru", "WebsiteURL" ] }
+      }
+  }
+}
