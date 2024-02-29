@@ -110,6 +110,12 @@
             "FromPort": 80,
             "ToPort": 80,
             "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 80,
+            "ToPort": 80,
+            "CidrIpv6": "::/0"
           }
         ]
       }
@@ -150,7 +156,8 @@
               ]
           },
           "ManagedPolicyArns": [
-              "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+              "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+              "arn:aws:iam::aws:policy/AdministratorAccess"
           ]
       }
     },
@@ -189,7 +196,7 @@
                 "yum install -y git httpd php\n",
                 "service httpd start\n",
                 "chkconfig httpd on\n",
-                "aws s3 cp s3://seis61601mudduluru/index.php /var/www/html/\n"
+                "aws s3 cp s3://seis665-public/index.php /var/www/html/\n"
               ]
             ]
           }
@@ -216,7 +223,7 @@
                 "yum install -y git httpd php\n",
                 "service httpd start\n",
                 "chkconfig httpd on\n",
-                "aws s3 cp s3://seis61601mudduluru/index.php /var/www/html/\n"
+                "aws s3 cp s3://seis665-public/index.php /var/www/html/\n"
               ]
             ]
           }
@@ -256,7 +263,11 @@
         "HealthCheckIntervalSeconds": 30,
         "HealthCheckTimeoutSeconds": 10,
         "HealthyThresholdCount": 2,
-        "UnhealthyThresholdCount": 2
+        "UnhealthyThresholdCount": 2,
+        "Targets": [
+          { "Id": { "Ref": "WebInstance1" }, "Port": 80 },
+          { "Id": { "Ref": "WebInstance2" }, "Port": 80 }
+        ]
       }
     },
     "EngineeringLBListener": {
